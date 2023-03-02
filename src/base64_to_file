@@ -1,0 +1,28 @@
+#!/usr/bin/env node
+
+const path = require('path');
+const fs = require('fs');
+
+const help = `Usage: 
+
+  ${path.basename(__filename)} filepath base64
+
+filepath    The filepath
+base64      The base64 encoded string
+`;
+
+const args = process.argv.slice(2);
+
+if (args.length < 2) {
+  console.log(help);
+  process.exit(1);
+}
+
+const filepath = args[0];
+const base64 = args[1];
+
+const data = Buffer.from(base64, 'base64');
+
+console.log(`Writing ${filepath}`);
+
+fs.writeFileSync(filepath, data);
